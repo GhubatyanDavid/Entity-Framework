@@ -3197,19 +3197,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HighEnd\\.nuget\\packages\\": {}
+    "C:\\Users\\Mega-PC\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "D:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "E:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\ConsoleApp1.csproj",
-      "packagesPath": "C:\\Users\\HighEnd\\.nuget\\packages\\",
-      "outputPath": "E:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\obj\\",
+      "projectPath": "D:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\ConsoleApp1.csproj",
+      "packagesPath": "C:\\Users\\Mega-PC\\.nuget\\packages\\",
+      "outputPath": "D:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HighEnd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Mega-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3223,8 +3223,8 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "E:\\Github\\Entity-Framework\\ComputerDatabase\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "E:\\Github\\Entity-Framework\\ComputerDatabase\\Infrastructure\\Infrastructure.csproj"
+            "D:\\Github\\Entity-Framework\\ComputerDatabase\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "D:\\Github\\Entity-Framework\\ComputerDatabase\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -3254,7 +3254,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
