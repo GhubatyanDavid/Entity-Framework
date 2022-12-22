@@ -21,20 +21,20 @@ namespace ComputerDatabase
 
         public virtual DbSet<Battles> Battles { get; set; }
         public virtual DbSet<Classes> Classes { get; set; }
-        public virtual DbSet<Company> Company { get; set; }
+        public virtual DbSet<Company> Companys { get; set; }
         public virtual DbSet<Income> Income { get; set; }
         public virtual DbSet<IncomeO> IncomeO { get; set; }
-        public virtual DbSet<Laptop> Laptop { get; set; }
+        public virtual DbSet<Laptop> Laptops { get; set; }
         public virtual DbSet<Outcome> Outcome { get; set; }
         public virtual DbSet<OutcomeO> OutcomeO { get; set; }
         public virtual DbSet<Outcomes> Outcomes { get; set; }
         public virtual DbSet<PassInTrip> PassInTrip { get; set; }
-        public virtual DbSet<Passenger> Passenger { get; set; }
-        public virtual DbSet<Pc> Pc { get; set; }
-        public virtual DbSet<Printer> Printer { get; set; }
-        public virtual DbSet<Product> Product { get; set; }
-        public virtual DbSet<Ships> Ships { get; set; }
-        public virtual DbSet<Trip> Trip { get; set; }
+        public virtual DbSet<Passenger> Passengers { get; set; }
+        public virtual DbSet<Pc> Pcs { get; set; }
+        public virtual DbSet<Printer> Printers { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Ship> Ships { get; set; }
+        public virtual DbSet<Trip> Trips { get; set; }
         public virtual DbSet<UtB> UtB { get; set; }
         public virtual DbSet<UtQ> UtQ { get; set; }
         public virtual DbSet<UtV> UtV { get; set; }
@@ -398,7 +398,7 @@ namespace ComputerDatabase
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Ships>(entity =>
+            modelBuilder.Entity<Ship>(entity =>
             {
                 entity.HasKey(e => e.Name);
 

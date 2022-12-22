@@ -11,7 +11,7 @@ namespace ComputerDatabase
     {
         public Classes()
         {
-            Ships = new HashSet<Ships>();
+            Ships = new HashSet<Ship>();
         }
 
         public string Class { get; set; }
@@ -21,6 +21,6 @@ namespace ComputerDatabase
         public float? Bore { get; set; }
         public int? Displacement { get; set; }
 
-        public virtual ICollection<Ships> Ships { get; set; }
+        public virtual ICollection<Ship> Ships { get; set; }
     }
 }

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ComputerDatabase
 {
-    public partial class Ships
+    public partial class Ship
     {
         public string Name { get; set; }
         public string Class { get; set; }
