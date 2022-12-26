@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 
 class Programm
 {
@@ -13,7 +14,7 @@ class Programm
             //1 /*Найдите номер модели, скорость и размер жесткого диска для всех ПК стоимостью менее 500 дол. Вывести: model, speed и hd*/
             {
 
-                var comp = db.Pcs
+                var comp = db.Pc
                     .Where(pcs => pcs.Price >= 500)
                     .Select(pcs => new { pcs.Model, pcs.Speed, pcs.Hd })
                     .ToList();
@@ -25,17 +26,21 @@ class Programm
             //2 /*Найдите производителей принтеров.Вывести: maker*/
             {
 
-                var printers = from p in db.Printers
-                               join products in db.Products on p.Type equals products.Type
+                var printers = from p in db.Printer
+                               join products in db.Product on p.Type equals products.Type
                                where (p.Type == "Printer")
                                select (products.Maker);
             }
             //3 /*Найдите номер модели, объем памяти и размеры экранов ПК-блокнотов, цена которых превышает 1000 дол.   model,ram,screen*/
             {
-                var laptops = db.Laptops
-                    .Where(l => l.Price > 1000)
-                    .Select(l => new { l.Model, l.Ram, l.Screen })
-                    .ToList();
+                var laptops = from l in db.Laptop
+                              where (l.Price > 1000)
+                              select new
+                              {
+                                  l.Model,
+                                  l.Ram,
+                                  l.Screen
+                              };
                 foreach (var laptop in laptops)
                 {
                     Console.WriteLine($"{laptop.Model}");
@@ -43,7 +48,7 @@ class Programm
             }
             //4 /*Найдите все записи таблицы Printer для цветных принтеров.*/
             {
-                var printers = db.Printers
+                var printers = db.Printer
                     .Where(p => p.Color == "y")
                     .ToList();
                 foreach (var printer in printers)
@@ -53,7 +58,7 @@ class Programm
             }
             //5 /*Найдите номер модели, скорость и размер жесткого диска ПК, имеющих 12x или 24x CD и цену менее 600 дол.*/
             {
-                var pcs = db.Pcs
+                var pcs = db.Pc
                   .Where(p => p.Cd == "12x" | p.Cd == "24x" & p.Price < 600)
                   .Select(p => new { p.Model, p.Speed, p.Hd })
                   .ToList();
@@ -64,8 +69,8 @@ class Programm
             }
             //6 /*Для каждого производителя, выпускающего ПК-блокноты c объёмом жесткого диска не менее 10 Гбайт, найти скорости таких ПК-блокнотов. Вывод: производитель, скорость.*/
             {
-                var laptops = from l in db.Laptops
-                              join p in db.Products on l.Model equals p.Model
+                var laptops = from l in db.Laptop
+                              join p in db.Product on l.Model equals p.Model
                               select new
                               {
                                   Maker = p.Maker,
@@ -79,39 +84,54 @@ class Programm
             }
             //7 /*Найдите номера моделей и цены всех имеющихся в продаже продуктов (любого типа) производителя B (латинская буква).*/  /ERROR
             {
-                var product = from p in db.Products
-                              join pc in db.Pcs on p.Model equals pc.Model
-                              where p.Maker = "B"
-                             .Union(db.Laptops)
-                              join l in db.Laptops on p.Model equals l.Model
-                              where p.maker == "B"
-                             .Union(db.Printers)
-                              join printers in db.Printers on p.Model equals printers.Model
-                              where printers.maker == "B"
-
+                var product = (from p in db.Product
+                               join pc in db.Pc on p.Model equals pc.Model
+                               where p.Maker == "B"
+                               select new
+                               {
+                                   pc.Model,
+                                   pc.Price
+                               })
+                               .Union(
+                              from p in db.Product
+                              join l in db.Laptop on p.Model equals l.Model
+                              where p.Maker == "B"
                               select new
                               {
-                                  pcModel = pc.model,
-                                  pcPrice = pc.price,
-                                  laptopModel = l.model,
-                                  latopPrice = l.price,
-                                  printerModel = printers.model,
-                                  printerPrice = printers.price,
-                              };
+                                  l.Model,
+                                  l.Price
+                              })
+                              .Union(
+                                from p in db.Product
+                                join printers in db.Printer on p.Model equals printers.Model
+                                where p.Maker == "B"
+
+                                select new
+                                {
+                                    printers.Model,
+                                    printers.Price
+                                });
             }
             //8 /*Найдите производителя, выпускающего ПК, но не ПК-блокноты.*/
             {
-                var firstProducts = db.Products.Where(p => p.Type == "PC");
-                var secondProducts = db.Products.Where(p => p.Type == "Laptop");
-                var except = firstProducts.Except(secondProducts).ToList();
+                var firstProducts = db.Product.Where(p => p.Type == "PC")
+                .Select(firstProduct => firstProduct.Maker);
 
 
 
+
+                var secondProducts = db.Product.Where(p => p.Type == "Laptop");
+                var except = firstProducts.Except(secondProducts).ToList()
+                   .Select(secondProduct => new { secondProduct.Maker });
+                foreach(var items in firstProducts)
+                {
+                    Console.WriteLine(items);
+                }
             }
             //9 /*Найдите производителей ПК с процессором не менее 450 Мгц. Вывести: Maker */
             {
-                var products = from p in db.Products
-                               join pc in db.Pcs on p.Model equals pc.Model
+                var products = from p in db.Product
+                               join pc in db.Pc on p.Model equals pc.Model
                                where pc.Speed >= 450
                                select new
                                {
@@ -120,8 +140,8 @@ class Programm
             }
             //10 /*Найдите модели принтеров, имеющих самую высокую цену. Вывести: model, price */
             {
-                var maxPrice = db.Printers.Max(max => max.Price);
-                var printers = from p in db.Printers
+                var maxPrice = db.Printer.Max(max => max.Price);
+                var printers = from p in db.Printer
 
                                select new
                                {
@@ -131,20 +151,20 @@ class Programm
             }
             //12 /*Найдите среднюю скорость ПК.*/
             {
-                var avgSpeed = db.Pcs.Average(avgSpeed => avgSpeed.Price);
+                var avgSpeed = db.Pc.Average(avgSpeed => avgSpeed.Price);
             }
             //13 /* Найдите среднюю скорость ПК-блокнотов, цена которых превышает 1000 дол.*/
             {
-                var avgSpeed = db.Laptops.Where(avgSpeed => avgSpeed.Price > 1000).Average(avgSpeed => avgSpeed.Price);
+                var avgSpeed = db.Laptop.Where(avgSpeed => avgSpeed.Price > 1000).Average(avgSpeed => avgSpeed.Price);
             }
             //14 /* Найдите среднюю скорость ПК, выпущенных производителем A.*/
             {
-                var pcs = from p in db.Pcs
-                          join products in db.Products on p.Model equals products.Model
+                var pcs = from p in db.Pc
+                          join products in db.Product on p.Model equals products.Model
                           where products.Maker == "A"
                           select new
                           {
-                              avgSpeed = db.Pcs.Average(avgspeed => avgspeed.Price)
+                              avgSpeed = db.Pc.Average(avgspeed => avgspeed.Price)
                           };
 
             }
