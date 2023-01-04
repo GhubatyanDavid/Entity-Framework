@@ -10,11 +10,11 @@
         "projectUniqueName": "D:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\ConsoleApp1.csproj",
         "projectName": "ConsoleApp1",
         "projectPath": "D:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\ConsoleApp1.csproj",
-        "packagesPath": "C:\\Users\\ghuba\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Mega-PC\\.nuget\\packages\\",
         "outputPath": "D:\\Github\\Entity-Framework\\ComputerDatabase\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ghuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mega-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -69,11 +69,11 @@
         "projectUniqueName": "D:\\Github\\Entity-Framework\\ComputerDatabase\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
         "projectPath": "D:\\Github\\Entity-Framework\\ComputerDatabase\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\ghuba\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Mega-PC\\.nuget\\packages\\",
         "outputPath": "D:\\Github\\Entity-Framework\\ComputerDatabase\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ghuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Mega-PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
