@@ -165,18 +165,15 @@ class Programm
 
 
 
-                var query2 = (from pc in db.Pc
+                var query = (from pc in db.Pc
                               join product in db.Product on pc.Model equals product.Model
                               where product.Maker == "A"
                               select pc.Speed);
 
 
-                var avgSpeed = query2.OrderBy(s=>s);
-                //  var avgSpeed = query.Average(speed => speed);
+                  var avgSpeed = query.Average(speed => speed);
 
 
-                //ba ura)?
-                // bayc run time errorer talis sql 
 
             }
             //            //15 /*Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD  */
