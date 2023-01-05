@@ -1,10 +1,7 @@
-﻿using ComputerDatabase;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions.Infrastructure;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Runtime.ExceptionServices;
-using System.Security.Cryptography;
+﻿using Infrastructure.Context;
+using Infrastructure.Entities;
+using System.Linq.Expressions;
+using System.Runtime.CompilerServices;
 
 class Programm
 {
@@ -162,12 +159,20 @@ class Programm
             //            }
             //            //14 /* Найдите среднюю скорость ПК, выпущенных производителем A.*/
             {
-                var query = (from pc in db.Pc
-                            join product in db.Product on pc.Model equals product.Model
-                            where product.Maker == "A"
-                            select new  {PC=pc,P=product }).ToList();
 
-              //  var avgSpeed = query.Average(speed => speed);
+
+
+
+
+
+                var query2 = (from pc in db.Pc
+                              join product in db.Product on pc.Model equals product.Model
+                              where product.Maker == "A"
+                              select pc.Speed);
+
+
+                var avgSpeed = query2.OrderBy(s=>s);
+                //  var avgSpeed = query.Average(speed => speed);
 
 
                 //ba ura)?
@@ -196,6 +201,45 @@ class Programm
     }
 }
 
+
+public static class Extention
+{
+    public static double OrderBy_V2(this IQueryable<short> array)
+    {
+        double sum = 0;
+
+        foreach (var speed in array)
+        {
+            sum += speed;
+        }
+
+        return sum / array.Count();
+    }
+
+    public static double Average_V2(this IQueryable<short> array)
+    {
+        double sum = 0;
+
+        foreach (var speed in array)
+        {
+            sum += speed;
+        }
+
+        return sum / array.Count();
+    }
+
+    public static double Average_V2(this IEnumerable<short> array)
+    {
+        double sum = 0;
+
+        foreach (var speed in array)
+        {
+            sum += speed;
+        }
+
+        return sum / array.Count() / array.Sum(s => s);
+    }
+}
 
 
 
