@@ -162,40 +162,37 @@ class Programm
             //            }
             //            //14 /* Найдите среднюю скорость ПК, выпущенных производителем A.*/
             {
-                var avgSpeed = from p in db.Pc
-                               join pr in db.Product on p.Model equals pr.Model
-                               where pr.Maker == "A"
-                               select new
-                               {
-                                   avgspeed = db.Pc.Average(avg => avg.Speed)
-                               };
-                foreach (var speed in avgSpeed)
-                {
-                    Console.WriteLine(speed);
-                }
+                var query = (from pc in db.Pc
+                            join product in db.Product on pc.Model equals product.Model
+                            where product.Maker == "A"
+                            select new  {PC=pc,P=product }).ToList();
+
+              //  var avgSpeed = query.Average(speed => speed);
+
+
+                //ba ura)?
+                // bayc run time errorer talis sql 
 
             }
+            //            //15 /*Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD  */
+            //            {
 
+            //            }
+
+            //            //16 /*Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed*/
+            //            {
+
+            //            }
+
+            //            //17 /*Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price*/
+            //            {
+
+            //            }
+
+            //            //18 /*Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.Вывести: maker, средний размер экрана.*/
+            //            {
 
         }
-        //            //15 /*Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD  */
-        //            {
-
-        //            }
-
-        //            //16 /*Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed*/
-        //            {
-
-        //            }
-
-        //            //17 /*Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price*/
-        //            {
-
-        //            }
-
-        //            //18 /*Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.Вывести: maker, средний размер экрана.*/
-        //            {
-
     }
 }
 
