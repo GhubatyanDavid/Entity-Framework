@@ -1,5 +1,7 @@
 ﻿using Infrastructure.Context;
 using Infrastructure.Entities;
+using System;
+using System.Collections.Specialized;
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 
@@ -158,41 +160,59 @@ class Programm
             //                var avgSpeed = db.Laptop.Where(avgSpeed => avgSpeed.Price > 1000).Average(avgSpeed => avgSpeed.Price);
             //            }
             //            //14 /* Найдите среднюю скорость ПК, выпущенных производителем A.*/
-            {
+            //{
+            //    var query = (from pc in db.Pc
+            //                 join product in db.Product on pc.Model equals product.Model
+            //                 where product.Maker == "A"
+            //                 select pc.Speed);
 
-
-
-
-
-
-                var query = (from pc in db.Pc
-                              join product in db.Product on pc.Model equals product.Model
-                              where product.Maker == "A"
-                              select pc.Speed);
-
-
-                  var avgSpeed = query.Average(speed => speed);
-
-
-
-            }
+            //    var avgSpeed = query.Average(speed => speed);
+            //}
             //            //15 /*Найдите размеры жестких дисков, совпадающих у двух и более PC. Вывести: HD  */
-            //            {
-
-            //            }
-
+            {
+                var lengths = from pc in db.Pc
+                              .GroupBy(pc => pc.Hd)
+                              .Where(hd => hd.Count() > 1)
+                              select pc;
+            }
             //            //16 /*Найдите модели ПК-блокнотов, скорость которых меньше скорости каждого из ПК. Вывести: type, model, speed*/
-            //            {
-
-            //            }
-
+            {
+                var minSpeed = db.Pc.Min(min => min.Speed);
+                var laptops = from lp in db.Laptop
+                              join p in db.Product on lp.Model equals p.Model
+                              where lp.Speed < minSpeed
+                              select new
+                              {
+                                  p.Type,
+                                  lp.Speed,
+                                  lp.Model
+                              };
+            }
             //            //17 /*Найдите производителей самых дешевых цветных принтеров. Вывести: maker, price*/
-            //            {
-
-            //            }
-
+            {
+                var minPrice = db.Printer.Min(min => min.Price);
+                var products = from p in db.Product
+                               join printer in db.Printer on p.Model equals printer.Model
+                               where printer.Color == "y" & printer.Price == minPrice
+                               select new
+                               {
+                                   p.Maker,
+                                   printer.Price,
+                               };
+            }
             //            //18 /*Для каждого производителя, имеющего модели в таблице Laptop, найдите средний размер экрана выпускаемых им ПК-блокнотов.Вывести: maker, средний размер экрана.*/
-            //            {
+            {
+                var averageScreen = db.Laptop.Average(avg => avg.Screen);
+                var products = from p in db.Product
+                               join l in db.Laptop on p.Model equals l.Model
+                               where p.Type == "Laptop"
+                               group p by p.Maker into p
+                               select new
+                               {
+                                   averageScreen,
+                                   //p.Maker
+                               };
+            }
 
         }
     }
